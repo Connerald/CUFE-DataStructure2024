@@ -7,12 +7,17 @@ typedef struct Node {
     struct Node* next;
 } Node;
 
+// 内存分配失败处理函数
+void handleMemoryAllocationFailure() {
+    printf("内存分配失败\n");
+    exit(1);
+}
+
 // 创建新节点
 Node* createNode(int data) {
     Node* newNode = (Node*)malloc(sizeof(Node));
     if (!newNode) {
-        printf("内存分配失败\n");
-        exit(1);
+        handleMemoryAllocationFailure();
     }
     newNode->data = data;
     newNode->next = NULL;
