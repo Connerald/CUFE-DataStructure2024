@@ -1,92 +1,37 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// 定义节点结构体
+// 定义节点结构体并使用 typedef 命名
 typedef struct Node {
-    int data;               // 数据域
-    struct Node *next;      // 指向下一个节点的指针
+    int data;
+    struct Node* next;
 } Node;
 
-// 定义线性表结构体
-typedef struct {
-    Node *head;             // 头指针
-    int length;             // 线性表的长度
-} LinkedList;
-
-// 初始化线性表
-void initList(LinkedList *list) {
-    list->head = NULL;      // 初始为空表
-    list->length = 0;
+// 创建新节点
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
 }
 
-// 添加节点到线性表尾部
-void append(LinkedList *list, int value) {
-    Node *newNode = (Node *)malloc(sizeof(Node));
-    newNode->data = value;
-    newNode->next = NULL;
-
-    if (list->head == NULL) {
-        list->head = newNode;
+// 插入新节点到链表末尾
+void insertNode(Node** head, int data) {
+    Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
     } else {
-        Node *temp = list->head;
+        Node* temp = *head;
         while (temp->next != NULL) {
             temp = temp->next;
         }
         temp->next = newNode;
     }
-    list->length++;
 }
 
-// 在指定位置插入节点
-void insert(LinkedList *list, int index, int value) {
-    if (index < 0 || index > list->length) {
-        printf("索引超出范围！\n");
-        return;
-    }
-
-    Node *newNode = (Node *)malloc(sizeof(Node));
-    newNode->data = value;
-
-    if (index == 0) {
-        newNode->next = list->head;
-        list->head = newNode;
-    } else {
-        Node *temp = list->head;
-        for (int i = 0; i < index - 1; i++) {
-            temp = temp->next;
-        }
-        newNode->next = temp->next;
-        temp->next = newNode;
-    }
-    list->length++;
-}
-
-// 删除指定位置的节点
-void delete(LinkedList *list, int index) {
-    if (index < 0 || index >= list->length) {
-        printf("索引超出范围！\n");
-        return;
-    }
-
-    Node *temp = list->head;
-    if (index == 0) {
-        list->head = temp->next;
-        free(temp);
-    } else {
-        Node *prev;
-        for (int i = 0; i < index; i++) {
-            prev = temp;
-            temp = temp->next;
-        }
-        prev->next = temp->next;
-        free(temp);
-    }
-    list->length--;
-}
-
-// 打印线性表
-void printList(LinkedList list) {
-    Node *temp = list.head;
+// 打印链表
+void printList(Node* head) {
+    Node* temp = head;
     while (temp != NULL) {
         printf("%d -> ", temp->data);
         temp = temp->next;
@@ -94,33 +39,36 @@ void printList(LinkedList list) {
     printf("NULL\n");
 }
 
-// 释放线性表的内存
-void freeList(LinkedList *list) {
-    Node *temp;
-    while (list->head != NULL) {
-        temp = list->head;
-        list->head = list->head->next;
-        free(temp);
+// 建立链表
+Node* createLinkedList() {
+    Node* head = NULL;
+    int input;
+
+    printf("请输入整数，输入单个节点后按enter继续输入，输入-1结束：\n");
+    while (1) {
+        scanf("%d", &input);
+        if (input == -1) {
+            break;
+        }
+        insertNode(&head, input);
     }
-    list->length = 0;
+
+    return head;
 }
 
 int main() {
-    LinkedList list;
-    initList(&list);
+    Node* head = createLinkedList();
 
-    append(&list, 10);
-    append(&list, 20);
-    append(&list, 30);
-    insert(&list, 1, 15);
+    printf("建立的链表内容如下：\n");
+    printList(head);
 
-    printf("线性表内容：\n");
-    printList(list);
+    // 释放链表内存
+    Node* temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
 
-    delete(&list, 2);
-    printf("删除节点后：\n");
-    printList(list);
-
-    freeList(&list);
     return 0;
 }
