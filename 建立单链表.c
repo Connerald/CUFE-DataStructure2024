@@ -39,6 +39,16 @@ void printList(Node* head) {
     printf("NULL\n");
 }
 
+// 释放链表内存
+void freeLinkedList(Node* head) {
+    Node* temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+}
+
 // 建立链表
 Node* createLinkedList() {
     Node* head = NULL;
@@ -63,12 +73,7 @@ int main() {
     printList(head);
 
     // 释放链表内存
-    Node* temp;
-    while (head != NULL) {
-        temp = head;
-        head = head->next;
-        free(temp);
-    }
+    freeLinkedList(head);
 
     return 0;
 }
