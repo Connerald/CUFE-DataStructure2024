@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// 定义节点结构体并使用 typedef 命名
+// 定义节点结构体
 typedef struct Node {
     int data;
     struct Node* next;
