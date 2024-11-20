@@ -40,7 +40,7 @@ void printList(Node* head) {
 }
 
 // 释放链表内存
-void freeLinkedList(Node* head) {
+void freeList(Node* head) {
     Node* temp;
     while (head != NULL) {
         temp = head;
@@ -50,7 +50,7 @@ void freeLinkedList(Node* head) {
 }
 
 // 建立链表
-Node* createLinkedList() {
+Node* createList() {
     Node* head = NULL;
     int input;
 
@@ -67,13 +67,13 @@ Node* createLinkedList() {
 }
 
 int main() {
-    Node* head = createLinkedList();
+    Node* head = createList();
 
     printf("建立的链表内容如下：\n");
     printList(head);
 
     // 释放链表内存
-    freeLinkedList(head);
+    freeList(head);
 
     return 0;
 }
