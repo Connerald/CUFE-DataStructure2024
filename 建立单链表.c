@@ -7,12 +7,39 @@ typedef struct Node {
     struct Node* next;
 } Node;
 
+// 函数原型声明
+void insertNode(Node** head, int data);
+void printList(Node* head);
+void freeList(Node* head);
+Node* createNode(int data);
+Node* createList(void);
+
 // 创建新节点
 Node* createNode(int data) {
     Node* newNode = (Node*)malloc(sizeof(Node));
     newNode->data = data;
     newNode->next = NULL;
     return newNode;
+}
+
+// 打印链表
+void printList(Node* head) {
+    Node* currentNode = head;
+    while (currentNode != NULL) {
+        printf("%d -> ", currentNode->data);
+        currentNode = currentNode->next;
+    }
+    printf("NULL\n");
+}
+
+// 释放链表内存
+void freeList(Node* head) {
+    Node* nodeToFree;
+    while (head != NULL) {
+        nodeToFree = head;
+        head = head->next;
+        free(nodeToFree);
+    }
 }
 
 // 插入新节点到链表末尾
@@ -29,40 +56,19 @@ void insertNode(Node** head, int data) {
     }
 }
 
-// 打印链表
-void printList(Node* head) {
-    Node* temp = head;
-    while (temp != NULL) {
-        printf("%d -> ", temp->data);
-        temp = temp->next;
-    }
-    printf("NULL\n");
-}
-
-// 释放链表内存
-void freeList(Node* head) {
-    Node* temp;
-    while (head != NULL) {
-        temp = head;
-        head = head->next;
-        free(temp);
-    }
-}
-
 // 建立链表
 Node* createList() {
     Node* head = NULL;
-    int input;
+    int inputValue;
 
     printf("请输入整数，输入单个节点后按enter继续输入，输入-1结束：\n");
     while (1) {
-        scanf("%d", &input);
-        if (input == -1) {
+        scanf("%d", &inputValue);
+        if (inputValue == -1) {
             break;
         }
-        insertNode(&head, input);
+        insertNode(&head, inputValue);
     }
-
     return head;
 }
 
