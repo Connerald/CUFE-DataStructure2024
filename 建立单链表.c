@@ -48,11 +48,11 @@ void insertNode(Node** head, int data) {
     if (*head == NULL) {
         *head = newNode;
     } else {
-        Node* temp = *head;
-        while (temp->next != NULL) {
-            temp = temp->next;
+        Node* current = *head;
+        while (current->next != NULL) {
+            current = current->next;
         }
-        temp->next = newNode;
+        current->next = newNode;
     }
 }
 
