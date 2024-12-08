@@ -109,17 +109,16 @@ void createListFromInput(DListNode** head) {
 }
 
 // 逆置双循环链表
-void reverseList(DListNode** head) {
-    if (*head == NULL) return;
-    DListNode* current = *head;
+void reverseList(DListNode* head) {
+    if (head == NULL) return;
+    DListNode* current = head;
     DListNode* temp = NULL;
     do {
         temp = current->next;
         current->next = current->prev;
         current->prev = temp;
         current = temp;
-    } while (current != *head);
-    *head = (*head)->next;
+    } while (current != head);
 }
 
 int main() {
@@ -128,7 +127,7 @@ int main() {
     printf("原链表: ");
     printList(head);
 
-    reverseList(&head);
+    reverseList(head);
     printf("逆置后的链表: ");
     printList(head);
 
