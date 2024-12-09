@@ -56,13 +56,36 @@ void freeLinkedList(Node* head) {
     }
 }
 
+// 连接两个链式串
+Node* concatenateLinkedLists(Node* list1, Node* list2) {
+    if (list1 == NULL) return list2;
+    if (list2 == NULL) return list1;
+
+    Node* current = list1;
+    while (current->next != NULL) {
+        current = current->next;
+    }
+    current->next = list2;
+
+    return list1;
+}
+
 int main() {
-    const char* str = "Hello, World!";
-    Node* linkedList = stringToLinkedList(str);
+    const char* str1 = "Hello, ";
+    const char* str2 = "World!";
+    Node* linkedList1 = stringToLinkedList(str1);
+    Node* linkedList2 = stringToLinkedList(str2);
 
-    printf("链式串内容: ");
-    printLinkedList(linkedList);
+    printf("链式串1内容: ");
+    printLinkedList(linkedList1);
 
-    freeLinkedList(linkedList);
+    printf("链式串2内容: ");
+    printLinkedList(linkedList2);
+
+    Node* concatenatedList = concatenateLinkedLists(linkedList1, linkedList2);
+    printf("连接后的链式串内容: ");
+    printLinkedList(concatenatedList);
+
+    freeLinkedList(concatenatedList);
     return 0;
 }
