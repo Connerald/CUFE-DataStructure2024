@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 // 希尔排序函数
+// 考试只要求概念 画线说明排序过程即可
 void shellSort(int arr[], int n) {
     // 选择增量
     for (int gap = n / 2; gap > 0; gap /= 2) {
