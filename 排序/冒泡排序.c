@@ -1,17 +1,22 @@
 #include <stdio.h>
+#include <stdbool.h>
 
 void bubbleSort(int arr[], int n) {
     for (int i = 0; i < n-1; i++) {
+        bool swapped = false;
         for (int j = 0; j < n-i-1; j++) {
             if (arr[j] > arr[j+1]) {
-                /*
-                交换 arr[j] 和 arr[j+1]
-                这里如果是arr[j] < arr[j+1]就是从大到小排序
-                */
+                // 交换 arr[j] 和 arr[j+1]
+                // 如果代码部分是arr[j] < arr[j+1] 则是降序排序
                 int temp = arr[j];
                 arr[j] = arr[j+1];
                 arr[j+1] = temp;
+                swapped = true;
             }
+        }
+        // 如果没有发生交换，提前结束排序
+        if (!swapped) {
+            break;
         }
     }
 }
